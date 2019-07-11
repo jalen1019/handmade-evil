@@ -59,6 +59,12 @@ then
     sleep 2
   fi
 
+  # Setup apache httpd mod_rewrite
+  echo "Enabling apache2 rewrite module..."
+  a2enmod rewrite
+
+  # Symlink apache files to /var/www/
+
 elif [ "$1" == "stop" ]
 then
   echo "Stopping DHCP daemon..."
@@ -85,6 +91,10 @@ then
 
   echo "Disabling ip forwarding..."
   sysctl -w net.ipv4.ip_forward=0
+
+  echo "Disabling apache2 rewrite module..."
+  a2dismod rewrite
+  sleep 2
 
 else
   echo "Usage: ./rogue_ap.sh start|stop"
